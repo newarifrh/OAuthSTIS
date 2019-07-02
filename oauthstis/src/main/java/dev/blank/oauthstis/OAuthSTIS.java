@@ -155,9 +155,7 @@ public class OAuthSTIS extends Button {
                 webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                        System.out.println(url);
                         if (url.contains(redirectUri + "?code=")) {
-
                             webView.setVisibility(View.INVISIBLE);
                             progressBar.setVisibility(View.VISIBLE);
                             String[] data = url.split("code=");
