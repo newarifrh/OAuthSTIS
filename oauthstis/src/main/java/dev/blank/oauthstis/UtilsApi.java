@@ -10,7 +10,7 @@ public class UtilsApi {
 
 
     private static String getBaseUrlApi() {
-        return "http://ws.stis.local/";
+        return "http://ws.stis.ac.id/";
     }
 
 
