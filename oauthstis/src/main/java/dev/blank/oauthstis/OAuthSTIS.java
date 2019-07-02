@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.http.SslError;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
@@ -18,6 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -145,13 +147,14 @@ public class OAuthSTIS extends Button {
                 final AlertDialog q3Dialog = q3.create();
                 q3Dialog.show();
                 webView.getSettings().setJavaScriptEnabled(true);
+
                 webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-                webView.loadUrl("http://ws.stis.ac.id/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&scope=");
+                webView.loadUrl("https://ws.stis.ac.id/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&scope=");
                 webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
                         AccessToken accessToken;
-
+                        System.out.println(url);
                         if (url.contains(redirectUri + "?code=")) {
                             webView.setVisibility(View.INVISIBLE);
                             progressBar.setVisibility(View.VISIBLE);
@@ -200,10 +203,20 @@ public class OAuthSTIS extends Button {
                     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                         super.onReceivedError(view, request, error);
 
+
                     }
 
                     public void onPageFinished(WebView view, String url) {
 
+
+                    }
+
+
+                    @Override
+                    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                       /* super.onReceivedSslError(view, handler, error);*/
+                        System.out.println("sslerror");
+                        handler.proceed();
                     }
                 });
             }
