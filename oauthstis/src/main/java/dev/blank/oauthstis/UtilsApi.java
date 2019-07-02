@@ -1,17 +1,20 @@
 package dev.blank.oauthstis;
 
-public class UtilsApi {
+class UtilsApi {
 
 
     // Mendeklarasikan Interface BaseApiService
-    public static BaseApiService getAPIService(){
-        return RetrofitClient.getClient(getBaseUrlApi()).create(BaseApiService.class);
+    static BaseApiService getAPIService() {
+
+        return NetworkHandler.getRetrofit().create(BaseApiService.class);
     }
 
 
     private static String getBaseUrlApi() {
-        return "http://ws.stis.ac.id/";
+        return "https://ws.stis.ac.id/";
     }
+
+
 
 
 }

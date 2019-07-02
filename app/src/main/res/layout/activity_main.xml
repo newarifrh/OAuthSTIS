@@ -8,15 +8,18 @@
     tools:context=".MainActivity">
 
     <EditText
+        android:id="@+id/edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+
     <dev.blank.oauthstis.OAuthSTIS
         android:id="@+id/oauth"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         app:clientId=""
         app:clientSecret=""
-        app:redirectUri=""
-        android:layout_height="wrap_content" />
+        app:redirectUri="" />
 
 </LinearLayout>

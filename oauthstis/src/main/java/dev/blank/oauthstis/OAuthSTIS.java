@@ -153,8 +153,6 @@ public class OAuthSTIS extends Button {
                 webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                        AccessToken accessToken;
-                        System.out.println(url);
                         if (url.contains(redirectUri + "?code=")) {
                             webView.setVisibility(View.INVISIBLE);
                             progressBar.setVisibility(View.VISIBLE);
@@ -169,6 +167,7 @@ public class OAuthSTIS extends Button {
                                         try {
                                             String result = response.body().string();
                                             try {
+
                                                 JSONObject jo = new JSONObject(result);
                                                 listener.onFinish(jo.getString("access_token"));
 
@@ -183,8 +182,7 @@ public class OAuthSTIS extends Button {
 
                                     @Override
                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                                        listener.onFinish(null);
+                                        listener.onError("Tidak terhubung ke Server");
                                     }
                                 });
 
@@ -214,8 +212,8 @@ public class OAuthSTIS extends Button {
 
                     @Override
                     public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                       /* super.onReceivedSslError(view, handler, error);*/
-                        System.out.println("sslerror");
+                        /* super.onReceivedSslError(view, handler, error);*/
+
                         handler.proceed();
                     }
                 });
