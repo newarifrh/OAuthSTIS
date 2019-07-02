@@ -19,6 +19,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -153,7 +155,9 @@ public class OAuthSTIS extends Button {
                 webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                        System.out.println(url);
                         if (url.contains(redirectUri + "?code=")) {
+
                             webView.setVisibility(View.INVISIBLE);
                             progressBar.setVisibility(View.VISIBLE);
                             String[] data = url.split("code=");
@@ -170,7 +174,7 @@ public class OAuthSTIS extends Button {
 
                                                 JSONObject jo = new JSONObject(result);
                                                 listener.onFinish(jo.getString("access_token"));
-
+                                                q3Dialog.dismiss();
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -183,25 +187,28 @@ public class OAuthSTIS extends Button {
                                     @Override
                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                                         listener.onError("Tidak terhubung ke Server");
+                                        q3Dialog.dismiss();
                                     }
                                 });
 
 
                             }
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    q3Dialog.dismiss();
-                                }
-                            }, 2000);
+
+                        } else if (url.contains(redirectUri + "?error=")) {
+                            q3Dialog.dismiss();
+                            listener.onError("Gagal login");
+                            CookieManager cookieManager = CookieManager.getInstance();
+                            cookieManager.removeAllCookie();
+
+
                         }
                     }
 
                     @Override
                     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                         super.onReceivedError(view, request, error);
-
-
+                        listener.onError("Tidak terhubung ke Server");
+                        q3Dialog.dismiss();
                     }
 
                     public void onPageFinished(WebView view, String url) {
