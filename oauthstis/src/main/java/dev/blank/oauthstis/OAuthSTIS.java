@@ -1,6 +1,5 @@
 package dev.blank.oauthstis;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -8,19 +7,17 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.http.SslError;
 import android.os.Build;
-import android.os.Handler;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AlertDialog;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.appcompat.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -29,6 +26,8 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+
+import com.google.android.material.button.MaterialButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,12 +61,6 @@ public class OAuthSTIS extends Button {
         init(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public OAuthSTIS(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        this.listener = null;
-        init(context, attrs);
-    }
 
     public void setLoginListener(LoginListener listener) {
         this.listener = listener;
@@ -116,6 +109,16 @@ public class OAuthSTIS extends Button {
         setCompoundDrawablePadding((int) (12 * scale));
         setTextColor(Color.parseColor("#FFFFFF"));
         setTextSize((int) (4 * scale));
+      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            setBackground(ContextCompat.getDrawable(context, R.drawable.bg_stroke));
+        } else {
+            setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.bg_stroke));
+        }*/
+
+
+      //setBackgroundColor(getResources().getColor(R.color.blue));
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             setBackground(ContextCompat.getDrawable(context, R.drawable.bg_stroke));
         } else {
