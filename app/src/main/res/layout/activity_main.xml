@@ -13,10 +13,20 @@
         android:layout_height="wrap_content" />
 
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login with " />
+
+
     <dev.blank.oauthstis.OAuthSTIS
         android:id="@+id/oauth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        app:clientId=""
+        app:clientSecret=""
+        app:redirectUri="" />
+
 
 </LinearLayout>

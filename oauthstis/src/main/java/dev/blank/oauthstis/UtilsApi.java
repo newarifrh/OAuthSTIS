@@ -2,19 +2,16 @@ package dev.blank.oauthstis;
 
 class UtilsApi {
 
+    private static String BASE_URL_WS_STIS = "https://ws.stis.ac.id/";
 
-    // Mendeklarasikan Interface BaseApiService
     static BaseApiService getAPIService() {
-
-        return NetworkHandler.getRetrofit().create(BaseApiService.class);
+        return NetworkHandler.getClient(getBaseUrlApi()).create(BaseApiService.class);
     }
 
 
     private static String getBaseUrlApi() {
-        return "https://ws.stis.ac.id/";
+        return BASE_URL_WS_STIS;
     }
-
-
 
 
 }

@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AlertDialog;
+
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -61,7 +62,6 @@ public class OAuthSTIS extends Button {
         init(context, attrs);
     }
 
-
     public void setLoginListener(LoginListener listener) {
         this.listener = listener;
     }
@@ -81,8 +81,6 @@ public class OAuthSTIS extends Button {
     }
 
     private void init(final Context context, AttributeSet attrs) {
-
-
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
                 R.styleable.Text,
@@ -103,20 +101,10 @@ public class OAuthSTIS extends Button {
 
 
         final float scale = ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-
-
         setPadding((int) (8 * scale), (int) (8 * scale), (int) (10 * scale), (int) (8 * scale));
         setCompoundDrawablePadding((int) (12 * scale));
         setTextColor(Color.parseColor("#FFFFFF"));
         setTextSize((int) (4 * scale));
-      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            setBackground(ContextCompat.getDrawable(context, R.drawable.bg_stroke));
-        } else {
-            setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.bg_stroke));
-        }*/
-
-
-      //setBackgroundColor(getResources().getColor(R.color.blue));
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -127,7 +115,6 @@ public class OAuthSTIS extends Button {
 
         setGravity(Gravity.LEFT);
         setGravity(Gravity.CENTER_VERTICAL);
-
 
         setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_sipadu, 0, 0, 0);
         Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto_medium);
@@ -142,17 +129,12 @@ public class OAuthSTIS extends Button {
                 View view = inflater.inflate(R.layout.activity_webview, null);
                 EditText editText = view.findViewById(R.id.edit);
                 editText.setVisibility(GONE);
-
                 final WebView webView = view.findViewById(R.id.web);
-
                 final ProgressBar progressBar = view.findViewById(R.id.loading);
                 q3.setView(view);
-
-
                 final AlertDialog q3Dialog = q3.create();
                 q3Dialog.show();
                 webView.getSettings().setJavaScriptEnabled(true);
-
                 webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
                 webView.loadUrl("https://ws.stis.ac.id/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&scope=");
                 webView.setWebViewClient(new WebViewClient() {
@@ -218,12 +200,6 @@ public class OAuthSTIS extends Button {
                     }
 
 
-                    @Override
-                    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                        /* super.onReceivedSslError(view, handler, error);*/
-
-                        handler.proceed();
-                    }
                 });
             }
         });
