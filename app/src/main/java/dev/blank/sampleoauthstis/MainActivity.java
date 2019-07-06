@@ -3,14 +3,10 @@ package dev.blank.sampleoauthstis;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
-
 import dev.blank.oauthstis.OAuthSTIS;
 
 public class MainActivity extends AppCompatActivity {
     OAuthSTIS login;
-    String clientId = "";
-    String clientSecret = "";
-    String redirectUri = "";
 
     EditText editText;
 
@@ -30,8 +26,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFinish(String token) {
-                editText.setText(token);
+            public void onFinish(String result) {
 
             }
         });

@@ -5,21 +5,17 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.http.SslError;
 import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AlertDialog;
-
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.CookieManager;
-import android.webkit.SslErrorHandler;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -28,20 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.google.android.material.button.MaterialButton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class OAuthSTIS extends Button {
-    private String kode;
     private LoginListener listener;
 
     public OAuthSTIS(Context context) {
@@ -66,18 +49,10 @@ public class OAuthSTIS extends Button {
         this.listener = listener;
     }
 
-    private void setKode(String kode) {
-        this.kode = kode;
-    }
-
-    public String getKode() {
-        return kode;
-    }
-
     public interface LoginListener {
         public void onError(String error);
 
-        public void onFinish(String token);
+        public void onFinish(String result);
     }
 
     private void init(final Context context, AttributeSet attrs) {
@@ -92,12 +67,6 @@ public class OAuthSTIS extends Button {
                 R.styleable.Text,
                 0, 0);
         final String redirectUri = b.getString(R.styleable.Text_redirectUri);
-
-        TypedArray c = context.getTheme().obtainStyledAttributes(
-                attrs,
-                R.styleable.Text,
-                0, 0);
-        final String clientSecret = b.getString(R.styleable.Text_clientSecret);
 
 
         final float scale = ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
@@ -136,6 +105,7 @@ public class OAuthSTIS extends Button {
                 q3Dialog.show();
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+                webView.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
                 webView.loadUrl("https://ws.stis.ac.id/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&scope=");
                 webView.setWebViewClient(new WebViewClient() {
                     @Override
@@ -143,47 +113,11 @@ public class OAuthSTIS extends Button {
                         if (url.contains(redirectUri + "?code=")) {
                             webView.setVisibility(View.INVISIBLE);
                             progressBar.setVisibility(View.VISIBLE);
-                            String[] data = url.split("code=");
-                            String kode = data[1];
-                            setKode(kode);
-
-                            if (listener != null) {
-                                UtilsApi.getAPIService().getAccessToken("authorization_code", clientId, clientSecret, redirectUri, kode).enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                        try {
-                                            String result = response.body().string();
-                                            try {
-
-                                                JSONObject jo = new JSONObject(result);
-                                                listener.onFinish(jo.getString("access_token"));
-                                                q3Dialog.dismiss();
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                        listener.onError("Tidak terhubung ke Server");
-                                        q3Dialog.dismiss();
-                                    }
-                                });
-
-
-                            }
-
                         } else if (url.contains(redirectUri + "?error=")) {
                             q3Dialog.dismiss();
                             listener.onError("Gagal login");
                             CookieManager cookieManager = CookieManager.getInstance();
                             cookieManager.removeAllCookie();
-
-
                         }
                     }
 
@@ -195,7 +129,12 @@ public class OAuthSTIS extends Button {
                     }
 
                     public void onPageFinished(WebView view, String url) {
-
+                        if (url.contains(redirectUri + "?code=")) {
+                            if (listener != null) {
+                                webView.loadUrl("javascript:window.HTMLOUT.processHTML(document.getElementsByTagName('html')[0].innerHTML);");
+                                q3Dialog.dismiss();
+                            }
+                        }
 
                     }
 
@@ -204,6 +143,16 @@ public class OAuthSTIS extends Button {
             }
         });
 
+    }
+
+    class MyJavaScriptInterface {
+        @JavascriptInterface
+        @SuppressWarnings("unused")
+        public void processHTML(String html) {
+            String[] data = html.split("<body>");
+            String[] data2 = data[1].split("</body>");
+            listener.onFinish(data2[0]);
+        }
     }
 
 
