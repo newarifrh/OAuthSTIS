@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:id="@+id/edit"
-        android:layout_height="wrap_content" />
 
-
-    <WebView
-        android:id="@+id/web"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="invisible" />
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</RelativeLayout>
+
+        <WebView
+            android:id="@+id/web"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/web"
+            android:orientation="vertical" />
+
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>
