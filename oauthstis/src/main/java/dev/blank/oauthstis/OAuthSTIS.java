@@ -73,7 +73,6 @@ public class OAuthSTIS extends Button {
         setPadding((int) (8 * scale), (int) (8 * scale), (int) (10 * scale), (int) (8 * scale));
         setCompoundDrawablePadding((int) (12 * scale));
         setTextColor(Color.parseColor("#FFFFFF"));
-        setTextSize((int) (4 * scale));
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

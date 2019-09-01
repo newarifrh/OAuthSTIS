@@ -1,8 +1,11 @@
 package dev.blank.sampleoauthstis;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
+
 import dev.blank.oauthstis.OAuthSTIS;
 
 public class MainActivity extends AppCompatActivity {
