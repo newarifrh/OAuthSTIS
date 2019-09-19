@@ -29,10 +29,9 @@ implementation 'com.github.newarifrh:oauthstis:0.0.10-alpha'
 
 ### Include following code in your activity:
 
-```
-
 ![carbon](https://user-images.githubusercontent.com/40921368/65258785-b51b7e80-db2d-11e9-97c6-be710f0b1d7c.png)
 
+```
 
  OAuthSTIS  oAuthSTIS = findViewById(R.id.oauth);
         oAuthSTIS.setLoginListener(new OAuthSTIS.LoginListener() {
