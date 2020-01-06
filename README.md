@@ -23,8 +23,8 @@ implementation 'com.github.newarifrh:oauthstis:0.0.10-alpha'
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
                         android:textSize="16sp"
-                        app:clientId="CLIENT ID"
-                        app:redirectUri="URL CALLBACK" />
+                        app:clientId="#CLIENT-ID"
+                        app:redirectUri="#URL-CALLBACK" />
 ```
 
 ### Include following code in your activity:
@@ -48,7 +48,21 @@ implementation 'com.github.newarifrh:oauthstis:0.0.10-alpha'
 
 ```
 
+## Additional
 
+### Code for the redirector:
+
+```
+$query = http_build_query([
+            'client_id' => '#CLIENT-ID',
+            'redirect_uri' => '#URL-CALLBACK',
+            'response_type' => 'code',
+            'scope' => ''
+        ]);
+
+        header('Location: http://ws.stis.ac.id/oauth/authorize?' . $query);
+
+```
 
 ## Authors
 
