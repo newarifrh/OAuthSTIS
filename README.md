@@ -64,6 +64,51 @@ $query = http_build_query([
 
 ```
 
+### Code for the callback:
+
+```
+if (isset($_REQUEST['code']) && $_REQUEST['code']) {
+			$curl_status = curl_init();
+
+			curl_setopt_array($curl_status, [
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_URL => 'https://ws.stis.ac.id/oauth/token',
+				CURLOPT_POST => 1,
+
+				CURLOPT_POSTFIELDS => [
+					'grant_type' => 'authorization_code',
+					'client_id' => '#CLIENT-ID',
+					'client_secret' => '#CLIENT-SECRET',
+					'redirect_uri' => '#URL-CALLBACK',
+					'code' => $_REQUEST['code']
+				]
+			]);
+
+			$result = curl_exec($curl_status);
+			curl_close($curl_status);
+			$hasil = json_decode($result);
+			$token = $hasil->access_token; //Token User
+
+
+			$authorization = "Authorization: Bearer " . $token;
+
+			$curl_status = curl_init();
+
+			curl_setopt_array($curl_status, [
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_URL => 'https://ws.stis.ac.id/api/user',
+				CURLOPT_HTTPHEADER => array($authorization)
+			]);
+
+			$result = curl_exec($curl_status);
+			curl_close($curl_status);
+
+			$user  = json_decode($result); //Data User
+			print_r($user);
+		}
+
+```
+
 ## Authors
 
 * **Arif Rahman Hakim**
