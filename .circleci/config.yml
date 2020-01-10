@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - run:
-         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+          name: Chmod permissions
           command: sudo chmod +x ./gradlew
       - run:
           name: Download Dependencies
