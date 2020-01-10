@@ -1,4 +1,6 @@
 # OAuthSTIS
+[![CircleCI](https://circleci.com/gh/newarifrh/OAuthSTIS.svg?style=svg)](https://circleci.com/gh/newarifrh/OAuthSTIS)
+
 Sebuah sistem otentikasi untuk mengizinkan pengguna menggunakan berbagai layanan di Politeknik Statistika STIS dengan menggunakan satu akun pengguna saja yaitu Akun Sipadu STIS.
 
 ## Getting Started
