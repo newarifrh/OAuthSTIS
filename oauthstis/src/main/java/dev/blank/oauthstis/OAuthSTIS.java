@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.button.MaterialButton;
@@ -87,7 +89,7 @@ public class OAuthSTIS extends MaterialButton {
         setCompoundDrawablePadding((int) (12 * scale));
         setTextColor(Color.parseColor("#FFFFFF"));
 
-        setBackgroundTintList(getResources().getColorStateList(R.color.blue));
+        setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.blue));
 
         setGravity(Gravity.START);
         setGravity(Gravity.CENTER_VERTICAL);
@@ -116,21 +118,30 @@ public class OAuthSTIS extends MaterialButton {
                             q3Dialog = q3.create();
                             q3Dialog.show();
                             webView.getSettings().setJavaScriptEnabled(true);
+                            webView.getSettings().setDomStorageEnabled(true);
                             webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
                             webView.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
                             webView.loadUrl("https://ws.stis.ac.id/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&scope=");
                             webView.setWebViewClient(new WebViewClient() {
                                 @Override
+
                                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                                     if (url.contains(redirectUri + "?code=")) {
                                         webView.setVisibility(View.INVISIBLE);
                                         progressBar.setVisibility(View.VISIBLE);
                                     } else if (url.contains(redirectUri + "?error=")) {
                                         q3Dialog.dismiss();
-                                        listener.onError("Gagal login");
-                                        CookieManager cookieManager = CookieManager.getInstance();
-                                        cookieManager.removeAllCookie();
+                                        listener.onError(context.getString(R.string.gagal_login));
+
+
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                            CookieManager.getInstance().removeAllCookies(null);
+                                            CookieManager.getInstance().flush();
+                                        } else {
+                                            CookieManager.getInstance().removeAllCookie();
+                                        }
                                     }
+
                                 }
 
                                 @Override

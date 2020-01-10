@@ -6,4 +6,5 @@
     <string name="kesalahan_konfigurasi">Periksa konfigurasi clientId, redirectUri</string>
     <string name="lengkapi_konfigurasi">Silahkan lengkapi konfigurasi clientId, dan redirectUri</string>
     <string name="kesalahan_konfigurasi_file_callback">Kesalahan terjadi pada file Callback</string>
+    <string name="gagal_login">Gagal login</string>
 </resources>
