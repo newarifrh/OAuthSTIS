@@ -1,7 +1,7 @@
 # OAuthSTIS
 [![CircleCI](https://circleci.com/gh/newarifrh/OAuthSTIS.svg?style=svg)](https://circleci.com/gh/newarifrh/OAuthSTIS)
 
-[![Actions Status](https://github.com/newarifrh/OAuthSTIS/workflows/Android CI/badge.svg)](https://github.com/newarifrh/OAuthSTIS/actions)
+[![Actions Status](https://github.com/newarifrh/OAuthSTIS/workflows/Android%20CI/badge.svg)](https://github.com/newarifrh/OAuthSTIS/actions)
 
 Sebuah sistem otentikasi untuk mengizinkan pengguna menggunakan berbagai layanan di Politeknik Statistika STIS dengan menggunakan satu akun pengguna saja yaitu Akun Sipadu STIS.
 
