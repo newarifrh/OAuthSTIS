@@ -3,6 +3,5 @@
     <declare-styleable name="Text">
         <attr name="clientId" />
         <attr name="redirectUri" />
-
     </declare-styleable>
 </resources>

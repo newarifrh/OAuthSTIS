@@ -7,16 +7,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/edit"
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login with " />
+        app:backgroundTint="@color/colorPrimary"
+        android:layout_height="wrap_content"/>
 
 
     <dev.blank.oauthstis.OAuthSTIS

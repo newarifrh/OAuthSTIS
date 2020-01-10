@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">OAuth2STISLibrary</string>
+    <string name="login_with_sipadu">Login with Sipadu</string>
+    <string name="url_ws">ws.stis.ac.id/</string>
+    <string name="tidak_terhubung_ke_server">Tidak terhubung ke Server</string>
+    <string name="kesalahan_konfigurasi">Periksa konfigurasi clientId, redirectUri</string>
+    <string name="lengkapi_konfigurasi">Silahkan lengkapi konfigurasi clientId, dan redirectUri</string>
+    <string name="kesalahan_konfigurasi_file_callback">Kesalahan terjadi pada file Callback</string>
 </resources>
