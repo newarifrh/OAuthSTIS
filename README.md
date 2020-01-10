@@ -10,7 +10,7 @@ Sebelum menggunakan *library* ini pastikan anda telah mendaftar di Sipadu Dev+ (
 ### Gradle
 
 ```
-implementation 'com.github.newarifrh:oauthstis:0.0.10-alpha'
+implementation 'com.github.newarifrh:oauthstis:0.1.0'
 ```
 
 ## Usage
