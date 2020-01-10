@@ -1,4 +1,6 @@
 # OAuthSTIS
+[![CircleCI](https://circleci.com/gh/newarifrh/OAuthSTIS.svg?style=svg)](https://circleci.com/gh/newarifrh/OAuthSTIS)
+
 Sebuah sistem otentikasi untuk mengizinkan pengguna menggunakan berbagai layanan di Politeknik Statistika STIS dengan menggunakan satu akun pengguna saja yaitu Akun Sipadu STIS.
 
 ## Getting Started
@@ -29,20 +31,18 @@ implementation 'com.github.newarifrh:oauthstis:0.0.10-alpha'
 
 ### Include following code in your activity:
 
-![carbon](https://user-images.githubusercontent.com/40921368/65258785-b51b7e80-db2d-11e9-97c6-be710f0b1d7c.png)
-
 ```
 
  OAuthSTIS  oAuthSTIS = findViewById(R.id.oauth);
         oAuthSTIS.setLoginListener(new OAuthSTIS.LoginListener() {
             @Override
             public void onError(String error) {
-                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFinish(String result) {
-                Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+            public void onFinish(JSONObject user) {
+	    	Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -100,11 +100,10 @@ if (isset($_REQUEST['code']) && $_REQUEST['code']) {
 				CURLOPT_HTTPHEADER => array($authorization)
 			]);
 
-			$result = curl_exec($curl_status);
+			$user = curl_exec($curl_status);
 			curl_close($curl_status);
 
-			$user  = json_decode($result); //Data User
-			print_r($user);
+			echo $user;
 		}
 
 ```
