@@ -37,6 +37,7 @@ before_script:
   # emulator -avd test -no-skin -no-audio -no-window &
 script:
   # ./wait_for_emulator
+  - sudo chmod +x ./gradlew
   - ./gradlew connectedCheck
 after_success:
   - bash <(curl -s https://codecov.io/bash)
