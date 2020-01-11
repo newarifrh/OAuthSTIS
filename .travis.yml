@@ -6,10 +6,10 @@ android:
     - android-29
     - sys-img-armeabi-v7a-$ANDROID_TARGET
     - extra-android-support
-    - android-22
+    - android-19
 env:
   matrix:
-    - ANDROID_TARGET=android-22  ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
 script:
   - sudo chmod +x ./gradlew
   - ./gradlew build jacocoTestReport assembleAndroidTest
