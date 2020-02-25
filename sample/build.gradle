@@ -11,7 +11,7 @@ tasks.withType(Test) {
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "29.0.2"
     lintOptions {
         abortOnError false
     }
@@ -26,8 +26,7 @@ android {
     buildTypes {
         release {
 
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
