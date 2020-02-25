@@ -14,7 +14,7 @@ Sebelum menggunakan *library* ini pastikan anda telah mendaftar di Sipadu Dev+ (
 ### Gradle
 
 ```
-implementation 'com.github.newarifrh:oauthstis:0.1.0'
+implementation 'com.github.newarifrh:oauthstis:0.2.0'
 ```
 
 ## Usage
