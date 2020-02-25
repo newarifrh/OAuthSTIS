@@ -15,5 +15,7 @@ jobs:
         java-version: 1.8
     - name: Chmod permissions
       run: sudo chmod +x ./gradlew
+    - name: Chmod directory sdk
+      run: sudo chmod +w /usr/local/lib/android/sdk
     - name: Build with Gradle
       run: ./gradlew build
