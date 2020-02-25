@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +34,10 @@ import org.json.JSONObject;
 
 public class OAuthSTIS extends MaterialButton {
     private LoginListener listener;
-    AlertDialog q3Dialog;
-    Context context;
+    private AlertDialog q3Dialog;
+    private Context context;
+    private String TAG = "OAuthSTIS";
+
 
     public OAuthSTIS(Context context) {
         super(context);
@@ -132,8 +135,7 @@ public class OAuthSTIS extends MaterialButton {
                                     } else if (url.contains(redirectUri + "?error=")) {
                                         q3Dialog.dismiss();
                                         listener.onError(context.getString(R.string.gagal_login));
-
-
+                                        Log.d(TAG, context.getString(R.string.gagal_login));
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                             CookieManager.getInstance().removeAllCookies(null);
                                             CookieManager.getInstance().flush();
@@ -141,13 +143,13 @@ public class OAuthSTIS extends MaterialButton {
                                             CookieManager.getInstance().removeAllCookie();
                                         }
                                     }
-
                                 }
 
                                 @Override
                                 public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                                     super.onReceivedError(view, request, error);
                                     listener.onError(context.getString(R.string.tidak_terhubung_ke_server));
+                                    Log.e(TAG, context.getString(R.string.tidak_terhubung_ke_server));
                                     q3Dialog.dismiss();
                                 }
 
@@ -170,9 +172,11 @@ public class OAuthSTIS extends MaterialButton {
                             });
                         }
                     } else {
+                        Log.e(TAG, context.getString(R.string.lengkapi_konfigurasi));
                         listener.onError(context.getString(R.string.lengkapi_konfigurasi));
                     }
                 } else {
+                    Log.e(TAG, context.getString(R.string.lengkapi_konfigurasi));
                     listener.onError(context.getString(R.string.lengkapi_konfigurasi));
                 }
             }
@@ -192,15 +196,15 @@ public class OAuthSTIS extends MaterialButton {
                     listener.onFinish(jo);
                 } catch (JSONException e) {
                     listener.onError(context.getString(R.string.kesalahan_konfigurasi_file_callback));
+                    Log.e(TAG, context.getString(R.string.kesalahan_konfigurasi_file_callback));
                 }
 
             } else if (type.equals("gagal")) {
                 if (data2[0].contains("error")) {
+                    Log.e(TAG, context.getString(R.string.kesalahan_konfigurasi));
                     listener.onError(context.getString(R.string.kesalahan_konfigurasi));
                     q3Dialog.dismiss();
                 }
-
-
             }
         }
     }
