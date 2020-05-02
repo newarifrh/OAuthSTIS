@@ -10,12 +10,12 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:hint="@string/app_name"
             android:id="@+id/edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:importantForAutofill="no" />
+            android:hint="@string/app_name"
+            android:importantForAutofill="no"
+            android:inputType="text" />
 
 
         <WebView
